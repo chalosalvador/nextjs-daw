@@ -2,6 +2,10 @@ import React from 'react';
 
 const ArticleDetails = ( { article }) => {
 
+  if(!article) {
+    return 'No se pudo obtener el artículo';
+  }
+
   return (
     <div>
       {article.title}
