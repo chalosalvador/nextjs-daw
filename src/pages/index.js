@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import Navigation from '../components/Navigation';
 
 export default function Home() {
   return (
@@ -8,6 +9,8 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Navigation />
 
       <main className={styles.main}>
         <h1 className={styles.title}>
