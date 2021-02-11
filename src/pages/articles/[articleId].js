@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import useSWR from "swr";
 import Comments from "../../components/Comments";
 
 const ArticleDetails = ({ article }) => {
