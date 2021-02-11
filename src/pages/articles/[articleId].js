@@ -1,14 +1,19 @@
-import React from 'react';
+import { useState, useEffect } from "react";
+import useSWR from "swr";
+import Comments from "../../components/Comments";
 
-const ArticleDetails = ( { article }) => {
-
-  if(!article) {
-    return 'No se pudo obtener el artículo';
+const ArticleDetails = ({ article }) => {
+  if (!article) {
+    return "No se pudo obtener el artículo";
   }
 
   return (
     <div>
-      {article.title}
+      <h1>{article.title}</h1>
+      <div>{article.user_data.name}</div>
+      <p>{article.body}</p>
+
+      <Comments articleId={article.id} />
     </div>
   );
 };
@@ -16,34 +21,49 @@ const ArticleDetails = ( { article }) => {
 export default ArticleDetails;
 
 export async function getStaticProps(context) {
+  console.log("context", context);
 
-  console.log( 'context', context );
-  const {articleId} = context.params;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/articles/${articleId}`)
-  const data = await res.json();
+  try {
+    const { articleId } = context.params;
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/articles/${articleId}`
+    );
+    const data = await res.json();
 
-  console.log( 'data', data );
+    console.log("data", data);
 
-  if (!data) {
-    return {
-      notFound: true,
+    if (!data) {
+      return {
+        notFound: true,
+      };
     }
-  }
 
-  return {
-    props: {
-      article: data
-    }, // will be passed to the page component as props
+    return {
+      props: {
+        article: data,
+      }, // will be passed to the page component as props
+    };
+  } catch (error) {
+    return {
+      props: {
+        article: null,
+      },
+    };
   }
 }
 
 export async function getStaticPaths() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/articles`);
+  const data = await res.json();
+
+  const articles = data.data;
+
+  const paths = articles.map((article) => {
+    return { params: { articleId: "" + article.id } };
+  });
+
   return {
-    paths: [
-      { params: { articleId: '1' } },
-      { params: { articleId: '2' } },
-      { params: { articleId: '3' } }
-    ],
-    fallback: true // See the "fallback" section below
+    paths,
+    fallback: true, // See the "fallback" section below
   };
 }
