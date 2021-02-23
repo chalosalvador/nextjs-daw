@@ -2,13 +2,15 @@
  * Created by chalosalvador on 17/2/21
  */
 
-import { Auth } from "../lib/auth";
-import { Article } from "../lib/articles";
+import { useAuth } from "@/lib/auth";
+import { Article } from "@/lib/articles";
 
 const Login = () => {
+  const { login, user } = useAuth();
+
   const handleLogin = async (data) => {
     try {
-      const userData = await Auth.login({
+      const userData = await login({
         email: "admin@prueba.com",
         password: "123123",
       });
