@@ -3,7 +3,7 @@
  */
 import React from "react";
 import useSWR from "swr";
-import { fetcher } from "../utils";
+import { fetcher } from "@/lib/utils";
 
 const Comments = ({ articleId }) => {
   const { data, error } = useSWR(`/articles/${articleId}/comments`, fetcher);
