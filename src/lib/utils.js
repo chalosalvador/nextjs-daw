@@ -1,11 +1,14 @@
 /**
  * Created by chalosalvador on 10/2/21
  */
+import api from "@/lib/api";
+
 export const fetcher = async (url) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`);
-  const data = await response.json();
+  const response = await api.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}${url}`
+  );
 
-  console.log("data", data);
+  console.log("response", response);
 
-  return data;
+  return response.data;
 };

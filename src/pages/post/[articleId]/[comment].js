@@ -8,7 +8,6 @@ const Post = () => {
 
   return (
     <>
-      <Navigation />
       <p>Post: {pid}</p>
       <p>Comment: {comment}</p>
     </>

@@ -4,9 +4,10 @@
 
 import { useAuth } from "@/lib/auth";
 import { Article } from "@/lib/articles";
+import withoutAuth from "@/hocs/withoutAuth";
 
 const Login = () => {
-  const { login, user } = useAuth();
+  const { login, user, logout } = useAuth();
 
   const handleLogin = async (data) => {
     try {
@@ -59,10 +60,18 @@ const Login = () => {
 
   return (
     <div>
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={handleViewArticle}>Ver artículo</button>
+      {user === null ? (
+        "Verificando sesión..."
+      ) : user === false ? (
+        <button onClick={handleLogin}>Login</button>
+      ) : (
+        <>
+          <p>Hola {user.name}!</p>
+          <button onClick={handleViewArticle}>Ver artículo</button>
+        </>
+      )}
     </div>
   );
 };
 
-export default Login;
+export default withoutAuth(Login);
