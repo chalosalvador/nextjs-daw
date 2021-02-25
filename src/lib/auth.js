@@ -4,6 +4,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import api from "./api";
 import cookie from "js-cookie";
+import translateMessage from "../constants/messages";
 
 export const AuthContext = createContext(null);
 
@@ -50,6 +51,7 @@ function useAuthProvider() {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
+        alert(error.response.data.message);
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
@@ -77,6 +79,7 @@ function useAuthProvider() {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
+        alert(translateMessage(error.response.data.message));
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);

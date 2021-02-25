@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import Navigation from "@/components/Navigation";
 
 const Post = () => {
   const router = useRouter();
