@@ -1,5 +1,8 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
+import { Button, Link as MuiLink } from "@material-ui/core";
+import Link from "next/link";
+import Routes from "../constants/routes";
 
 export default function Home() {
   return (
@@ -10,6 +13,13 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <Button color="secondary" variant="contained">
+          Hello World
+        </Button>
+
+        <Link href={Routes.ARTICLES} passHref>
+          <MuiLink>Articles</MuiLink>
+        </Link>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
