@@ -6,6 +6,7 @@ import { Container, CssBaseline, Grid, ThemeProvider } from "@material-ui/core";
 import theme from "@/styles/theme";
 import { Router } from "next/router";
 import NProgress from "nprogress";
+import { SnackbarProvider } from "notistack";
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
@@ -26,21 +27,23 @@ function App({ Component, pageProps }) {
         {/* Import CSS for nprogress */}
         <link rel="stylesheet" type="text/css" href="/nprogress.css" />
       </Head>
-      <AuthProvider>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
+      <SnackbarProvider>
+        <AuthProvider>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
 
-          <Navigation />
+            <Navigation />
 
-          <Container maxWidth="lg">
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Component {...pageProps} />
+            <Container maxWidth="lg">
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Component {...pageProps} />
+                </Grid>
               </Grid>
-            </Grid>
-          </Container>
-        </ThemeProvider>
-      </AuthProvider>
+            </Container>
+          </ThemeProvider>
+        </AuthProvider>
+      </SnackbarProvider>
     </>
   );
 }

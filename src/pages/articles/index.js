@@ -10,6 +10,7 @@ import {
   Grid,
   Typography,
 } from "@material-ui/core";
+import Routes from "../../constants/routes";
 
 const useStyles = makeStyles({
   root: {
@@ -67,7 +68,7 @@ const Articles = ({ articles }) => {
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Link href={`/articles/${article.id}`}>
+            <Link href={`${Routes.ARTICLES}/${article.id}`}>
               <Button size="small" color="primary">
                 Ver más
               </Button>
