@@ -4,6 +4,10 @@
 
 import api from "./api";
 
+async function getAll() {
+  return await api.get(`/articles`);
+}
+
 async function getById(id) {
   return await api.get(`/articles/${id}`);
 }
@@ -25,6 +29,7 @@ async function deleteArticle(id) {
 }
 
 export const Article = {
+  getAll,
   getById,
   create,
   update,

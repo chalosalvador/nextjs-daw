@@ -12,6 +12,11 @@ import {
 } from "@material-ui/core";
 import Routes from "../../constants/routes";
 import ArticleForm from "@/components/ArticleForm";
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
+import { Article } from "@/lib/articles";
+import Loading from "@/components/Loading";
+import React from "react";
 
 const useStyles = makeStyles({
   root: {
@@ -35,16 +40,19 @@ const useStyles = makeStyles({
   },
 });
 
-const Articles = ({ articles }) => {
+const Articles = () => {
   const classes = useStyles();
+  const { data, error } = useSWR("/articles", fetcher);
+
+  if (error) return <div>No se pudo cargar la lista de artículos</div>;
+  if (!data) return <Loading />;
 
   return (
     <>
-      {" "}
       <ArticleForm />
       <Grid container direction="row" justify="space-between">
-        {articles.map((article, index) => (
-          <Card className={classes.root}>
+        {data.data.map((article, index) => (
+          <Card className={classes.root} key={article.id}>
             <CardActionArea>
               <CardMedia
                 className={classes.media}
@@ -90,15 +98,13 @@ const Articles = ({ articles }) => {
 
 export default Articles;
 
-export async function getStaticProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/articles`);
-  const data = await res.json();
-
-  const articles = data.data;
-
-  return {
-    props: {
-      articles,
-    },
-  };
-}
+// export async function getStaticProps() {
+//   const response = await Article.getAll();
+//   const articles = response.data.data;
+//
+//   return {
+//     props: {
+//       articles,
+//     },
+//   };
+// }

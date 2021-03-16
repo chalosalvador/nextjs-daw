@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Article } from "@/lib/articles";
+import { mutate } from "swr";
 
 const ArticleForm = () => {
   const { register, handleSubmit } = useForm();
+
   // const fileInputRef = useRef();
 
   const onSubmit = async (data) => {
@@ -23,7 +25,7 @@ const ArticleForm = () => {
 
     try {
       await Article.create(formData);
-      // mutate();
+      mutate("/articles");
       // console.log("file", fileInputRef.current.files[0]);
     } catch (error) {
       if (error.response) {
